@@ -1,5 +1,5 @@
 package cipher;
 
-public interface CipherMethod {
-    String doEncryption();
+public interface CipherMethod<T> {
+    String doEncryption(String message, T key);
 }
