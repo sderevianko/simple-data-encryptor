@@ -33,19 +33,19 @@ public class AesCipher implements CipherMethod<String> {
         }
     }
 
-    private SecretKey getSecretKey(String secretKey) throws NoSuchAlgorithmException {
-        final MessageDigest messageDigest = MessageDigest.getInstance(HASHING_ALGORITHM);
-        byte[] secretKeyInBytes = secretKey.getBytes(CHARSET_UTF_8);
-        final byte[] hash = messageDigest.digest(secretKeyInBytes);
-        byte[] key = Arrays.copyOf(hash, 32);
-        return new SecretKeySpec(key, CIPHER_ALGORITHM);
-    }
-
     public String decrypt(SecretKey secretKey, String encryptedMessage) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
         Cipher cipher = Cipher.getInstance(HASHING_ALGORITHM);
         cipher.init(Cipher.DECRYPT_MODE, secretKey);
         byte[] decodedMessage = Base64.getDecoder().decode(encryptedMessage);
         byte[] decryptedMessage = cipher.doFinal(decodedMessage);
         return new String(decryptedMessage);
+    }
+
+    private SecretKey getSecretKey(String secretKey) throws NoSuchAlgorithmException {
+        final MessageDigest messageDigest = MessageDigest.getInstance(HASHING_ALGORITHM);
+        byte[] secretKeyInBytes = secretKey.getBytes(CHARSET_UTF_8);
+        final byte[] hash = messageDigest.digest(secretKeyInBytes);
+        byte[] key = Arrays.copyOf(hash, 32);
+        return new SecretKeySpec(key, CIPHER_ALGORITHM);
     }
 }
