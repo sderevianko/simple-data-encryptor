@@ -1,16 +1,21 @@
 package mainapplication;
 
-import encryptor.CaesarEncryptor;
+import encryptor.AesEncryptor;
+import encryptor.BaseEncryptor;
 import encryptor.VigenereEncryptor;
+
+import java.util.Random;
 
 public class SimpleDataEncryptorApplication {
 
     public static void main(String[] args) {
-        CaesarEncryptor caesarEncryptor = new CaesarEncryptor();
-        System.out.println(caesarEncryptor.encrypt("adfm", 2));
+        // The main condition of Strategy Pattern: design pattern that enables selecting an algorithm at runtime
+        final int randomNumber = new Random().nextInt(2);
+        final BaseEncryptor encryptor = randomNumber != 0
+                ? new AesEncryptor()
+                : new VigenereEncryptor();
 
-        VigenereEncryptor vigenereEncryptor = new VigenereEncryptor();
-        System.out.println(vigenereEncryptor.encrypt("adfm", "bacon"));
+        System.out.println(encryptor.encrypt("adfm", "diffusion"));
     }
 }
 
