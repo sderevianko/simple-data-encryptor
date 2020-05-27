@@ -14,8 +14,7 @@ public class SimpleDataEncryptorApplication {
         final BaseEncryptor encryptor = randomNumber != 0
                 ? new AesEncryptor()
                 : new VigenereEncryptor();
-
-        System.out.println(encryptor.encrypt("adfm", "diffusion"));
+        System.out.println(encryptor.encrypt("Hi, people!", "bithitgit"));
     }
 }
 
